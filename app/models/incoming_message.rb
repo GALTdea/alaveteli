@@ -80,6 +80,14 @@ class IncomingMessage < ApplicationRecord
   delegate :multipart?, to: :raw_email
   delegate :parts, to: :raw_email
 
+  def legislation_references
+    LegislationReference.match(get_main_body_text_folded)
+  end
+
+  def exemptions
+    legislation_references.select(&:exemption?)
+  end
+
   # Given that there are in theory many info request events, a convenience method for
   # getting the response event
   def response_event

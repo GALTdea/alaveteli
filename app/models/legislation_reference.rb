@@ -103,6 +103,11 @@ class LegislationReference
     base + "(#{sub_elements.join(')(')})"
   end
 
+  # TODO: This is really UK specific - move to WDTK theme
+  def exemption?
+    type == 'Section' && main_element == '12'
+  end
+
   private
 
   def main_element
